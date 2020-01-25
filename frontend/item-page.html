@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>homeless</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/window-dialog.css">
+    <link rel="stylesheet" href="css/catalog-style.css">
+    <link rel="stylesheet" href="css/item-style.css">
+</head>
+<body>
+<header>
+    <h1>
+    	homeless
+    	<img src="img/logo.png">
+    </h1>
+    <nav>
+        <ul>
+            <li><a class="link" name="/main" href="javascript: loadPageToUrl('/main')"> ГЛАВНАЯ</a></li>
+            <li><a class="link" name="/car-list">ПРИЮТИТЬ</a></li>
+            <li><a class="link" name="/about" href="javascript: loadPageToUrl('/about')">ПРОПАЛИ</a></li>
+            <li><a class="link" name="/about" href="javascript: loadPageToUrl('/about')">НУЖНА ПОМОЩЬ</a></li>
+        </ul>
+    </nav>
+    <div id="user" class="menu">
+        <div id="login">Гость</div>
+        <ul class="submenu" id="user-sidebar">
+            <li onclick="document.getElementById('login-form').style.display='block'"><a class="link"  >Войти</a></li>
+            <li onclick="document.getElementById('registration-form').style.display='block'"><a class="link" >Зарегистрироваться</a></li>
+        </ul>
+    </div>    
+
+</header>
+<div id="login-form" class="modal">
+  <span onclick="document.getElementById('login-form').style.display='none'"
+class="close" title="Close Modal">&times;</span>
+
+  <!-- Modal Content -->
+  <form class="modal-content animate" id="auth-form">
+    <div class="container">
+        <h1>Авторизация</h1>
+
+        <input type="text" placeholder="Введите логин" name="login" required><br>
+        <input type="password" placeholder="Введите пароль" name="password" required><br>
+        <label class="msg"></label>
+        <button type="button" id="login-button" onclick="logInUser()">ВОЙТИ</button>
+      
+    </div>
+  </form>
+</div> 
+<div id="registration-form" class="modal">
+  <span onclick="document.getElementById('registration-form').style.display='none'"
+class="close" title="Close Modal">&times;</span>
+
+  <form class="modal-content animate" method="POST" id="reg-form">
+    <div class="container">
+        <h1>Регистрация</h1>
+
+        <input type="text" placeholder="Введите логин" name="login" required><br>
+        <input type="password" placeholder="Введите пароль" name="password" required><br>
+        <input type="password" placeholder="Повторите пароль" name="retryPasswrod" required><br>
+        <input type="text" placeholder="Введите электронную почту" name="email" required><br>
+        <label class="msg"></label>
+        <button type="button"  id="reg-button" onclick="signUpUser()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+    </div>
+  </form>
+</div> 
+<div class="wrapper-content">
+    <div id="wrapper">
+		<content>
+            <div class="main-title">
+                <h1>Бездомный пёс гуляет по улице</h1> 
+            </div>
+            <div id="date">Дата публикации: 23 января 2020</div>
+            <div class="content-advert">
+                <div class="img-block">
+                    <div class="list-bar">
+                        <div id="prev"><</div>
+                        <div id="next">></div>    
+                    </div>
+                    <img src="img/dog1-template.jpg" alt="" width="300px">
+                </div>
+                <div class="descript">
+                    <h2>Опиcание</h2>
+                    <div class="text">
+                    Трёхцветная красавица ищет дом!
+                    Кошечку привезли с дач. Малышка оказалась сообразительной, быстро приучилась к лотку. Кушает очень хорошо. Немножно боязлива. Но только возьмёшь на руки, сразу включает моторчик. Возраст примерно 7 месяцев. 
+                    </div>
+                </div>
+                <div class="contact-data">
+                    <h2>Контактные данные</h2>
+                    <div class="contact-line">Номер телефона: <div id="phone-number">+375 29 817 47 53</div></div>
+                    <div class="contact-line">ФИО: <div id="fullname">Трофимов Е.В.</div></div>
+                </div>
+                <div class="location">
+                    <h2>Местоположение</h2>
+                    <div class="location-line">Город: <div id="city">Гомель</div></div>
+                    <div class="location-line">Адрес: <a href="javascript: openMap()"><div id="adress">ул. Интернациональная, 64</div></a></div>
+                </div>
+            </div>
+        </content>
+    </div>
+    <div class="empty-line">
+        
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div id="about">
+                © ФАНТАЗЕРЫ<br>2020 г. gstu.by
+            </div>
+            <div id="time">
+                
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script type="text/javascript" src="js/main.js">
+</script>
+<script type="text/javascript" src="js/filter-catalog.js">
+</script>
+</body>
+</html>

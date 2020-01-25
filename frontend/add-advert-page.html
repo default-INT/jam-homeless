@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>homeless</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/window-dialog.css">
+    <link rel="stylesheet" href="css/catalog-style.css">
+    <link rel="stylesheet" href="css/item-style.css">
+    <link rel="stylesheet" href="css/create-form.css">
+</head>
+<body>
+<header>
+    <h1>
+    	homeless
+    	<img src="img/logo.png">
+    </h1>
+    <nav>
+        <ul>
+            <li><a class="link" name="/main" href="javascript: loadPageToUrl('/main')"> ГЛАВНАЯ</a></li>
+            <li><a class="link" name="/car-list">ПРИЮТИТЬ</a></li>
+            <li><a class="link" name="/about" href="javascript: loadPageToUrl('/about')">ПРОПАЛИ</a></li>
+            <li><a class="link" name="/about" href="javascript: loadPageToUrl('/about')">НУЖНА ПОМОЩЬ</a></li>
+        </ul>
+    </nav>
+    <div id="user" class="menu">
+        <div id="login">Гость</div>
+        <ul class="submenu" id="user-sidebar">
+            <li onclick="document.getElementById('login-form').style.display='block'"><a class="link"  >Войти</a></li>
+            <li onclick="document.getElementById('registration-form').style.display='block'"><a class="link" >Зарегистрироваться</a></li>
+        </ul>
+    </div>    
+
+</header>
+<div id="login-form" class="modal">
+  <span onclick="document.getElementById('login-form').style.display='none'"
+class="close" title="Close Modal">&times;</span>
+
+  <!-- Modal Content -->
+  <form class="modal-content animate" id="auth-form">
+    <div class="container">
+        <h1>Авторизация</h1>
+
+        <input type="text" placeholder="Введите логин" name="login" required><br>
+        <input type="password" placeholder="Введите пароль" name="password" required><br>
+        <label class="msg"></label>
+        <button type="button" id="login-button" onclick="logInUser()">ВОЙТИ</button>
+      
+    </div>
+  </form>
+</div> 
+<div id="registration-form" class="modal">
+  <span onclick="document.getElementById('registration-form').style.display='none'"
+class="close" title="Close Modal">&times;</span>
+
+  <form class="modal-content animate" method="POST" id="reg-form">
+    <div class="container">
+        <h1>Регистрация</h1>
+
+        <input type="text" placeholder="Введите логин" name="login" required><br>
+        <input type="password" placeholder="Введите пароль" name="password" required><br>
+        <input type="password" placeholder="Повторите пароль" name="retryPasswrod" required><br>
+        <input type="text" placeholder="Введите электронную почту" name="email" required><br>
+        <label class="msg"></label>
+        <button type="button"  id="reg-button" onclick="signUpUser()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+    </div>
+  </form>
+</div> 
+<div class="wrapper-content">
+    <div id="wrapper">
+		<content>
+            <div class="main-title">
+                <h1>Добавление нового объявления</h1> 
+            </div>
+            <div class="load-img-block">
+                <img src="img/upload.png">
+                <img src="img/upload.png" style="width: 180px">
+                <img src="img/upload.png" style="width: 120px">
+                <img src="img/upload.png" style="width: 90px">
+            </div>
+            <div class="create-form">
+                <div class="input-form">
+                    <form class="enter_form">
+                        <div class="input-content">
+                            <label>Введите заголовок объявления</label>
+                            <input type="text"  placeholder="Заголовок" name="title">
+                            <label>Выберите тип объявления</label>
+                            <select style="width: 400px;">
+                                <option value="0">Тип объявления</option>
+                                <option value="1">Отдам в хорошие руки</option>
+                                <option value="2">Нашёл</option>
+                            </select>
+                            <label>Выберите класс</label>
+                            <select>
+                                <option>Кот</option>
+                                <option>Собака</option>
+                                <option>Другое</option>
+                            </select>
+                            <label>Введите описание объявления</label>
+                            <textarea  type="text" rows="8" placeholder="Описание питомца" name="descript"></textarea>
+                            <label>Выберите город</label>
+                            <select style="width: 400px;">
+                                <option value="0">Гомель</option>
+                                <option value="1">Мозырь</option>
+                                <option value="2">Калинковичи</option>
+                            </select>
+                            <label>Адрес, <a href="">показать на карте</a> (необязательно)</label>
+                            <input type="text" placeholder="ул. Полесская, 6" name="dificult">
+                        </div>
+                        <button style="background: green"><i aria-hidden="true" class="fa fa-search" > </i> Добавить</button>
+                    </form>     
+                </div>
+            </div>
+        </content>
+    </div>
+    <div class="empty-line">
+        
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div id="about">
+                © ФАНТАЗЕРЫ<br>2020 г. gstu.by
+            </div>
+            <div id="time">
+                
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script type="text/javascript" src="js/main.js">
+</script>
+<script type="text/javascript" src="js/filter-catalog.js">
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+#date {
+    font-size: 16pt;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px white solid;
+}
+
+.content-advert {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 350px auto;
+    grid-template-rows: auto;
+    grid-gap: 10px;
+    padding-bottom: 40px;
+}
+
+.content-advert .descript {
+    padding-right: 10px;
+}
+
+.content-advert .img-block {
+    display: inline-block;
+    position: relative;
+    width: 250px;
+    height: 220px;
+    overflow: hidden;
+    border-radius: 5px;
+    text-align: center;
+    background: black;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-advert .img-block img {
+    transition: all .35s;
+}
+
+.content-advert .list-bar {
+    position: absolute;
+    width: 100%;
+    background: black;
+    height: 40px;
+    bottom: 0;
+    opacity: 0.6;
+}
+
+.content-advert .img-block #next, .content-advert .img-block #prev {
+    position: relative;
+    display: inline-block;
+    font-size: 40px;
+    cursor: pointer;
+    color: white;
+    transition: all .35s;
+    line-height: 25px;
+    float: left;
+}
+
+.content-advert .img-block #next:hover, .content-advert .img-block #prev:hover {
+    color: #00d96e;
+}
+
+.content-advert .img-block #prev {
+    margin-left: 5px;
+}
+
+.content-advert .img-block #next {
+    float: right;
+    margin-right: 5px;
+}
+
+.content-advert .descript h2, .content-advert .location h2 {
+    font-size: 20pt;
+    padding-bottom: 8px;
+    width: 70%;
+    border-bottom: 2px white solid;
+}
+
+.content-advert .descript .text {
+    margin-top: 10px;
+    font-size: 16pt;
+}
+
+.content-advert .contact-data {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.content-advert .contact-data *, .content-advert .location-line * {
+    display: inline-block;
+}
+
+.content-advert .contact-data h2 {
+    display: block;
+    font-size: 20pt;
+    padding-bottom: 8px;
+    border-bottom: 2px white solid;
+}
+
+.content-advert .contact-data .contact-line, .content-advert .location-line  {
+    display: block;
+    font-size: 14pt;
+}
+
+.location-line a {
+    transition: all .35s;
+}
+
+.location-line a:hover {
+    color: #00d96e;
+}

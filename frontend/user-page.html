@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>homeless</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/window-dialog.css">
+    <link rel="stylesheet" href="css/catalog-style.css">
+    <link rel="stylesheet" href="css/item-style.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="css/profile.css">
+</head>
+<body>
+<header>
+    <h1>
+    	homeless
+    	<img src="img/logo.png">
+    </h1>
+    <nav>
+        <ul>
+            <li><a class="link" name="/main" href="javascript: loadPageToUrl('/main')"> ГЛАВНАЯ</a></li>
+            <li><a class="link" name="/car-list">ПРИЮТИТЬ</a></li>
+            <li><a class="link" name="/about" href="javascript: loadPageToUrl('/about')">ПРОПАЛИ</a></li>
+            <li><a class="link" name="/about" href="javascript: loadPageToUrl('/about')">НУЖНА ПОМОЩЬ</a></li>
+        </ul>
+    </nav>
+    <div id="user" class="menu">
+        <div id="login">Гость</div>
+        <ul class="submenu" id="user-sidebar">
+            <li onclick="document.getElementById('login-form').style.display='block'"><a class="link"  >Войти</a></li>
+            <li onclick="document.getElementById('registration-form').style.display='block'"><a class="link" >Зарегистрироваться</a></li>
+        </ul>
+    </div>    
+
+</header>
+<div id="login-form" class="modal">
+  <span onclick="document.getElementById('login-form').style.display='none'"
+class="close" title="Close Modal">&times;</span>
+
+  <!-- Modal Content -->
+  <form class="modal-content animate" id="auth-form">
+    <div class="container">
+        <h1>Авторизация</h1>
+
+        <input type="text" placeholder="Введите логин" name="login" required><br>
+        <input type="password" placeholder="Введите пароль" name="password" required><br>
+        <label class="msg"></label>
+        <button type="button" id="login-button" onclick="logInUser()">ВОЙТИ</button>
+      
+    </div>
+  </form>
+</div> 
+<div id="registration-form" class="modal">
+  <span onclick="document.getElementById('registration-form').style.display='none'"
+class="close" title="Close Modal">&times;</span>
+
+  <form class="modal-content animate" method="POST" id="reg-form">
+    <div class="container">
+        <h1>Регистрация</h1>
+
+        <input type="text" placeholder="Введите логин" name="login" required><br>
+        <input type="password" placeholder="Введите пароль" name="password" required><br>
+        <input type="password" placeholder="Повторите пароль" name="retryPasswrod" required><br>
+        <input type="text" placeholder="Введите электронную почту" name="email" required><br>
+        <label class="msg"></label>
+        <button type="button"  id="reg-button" onclick="signUpUser()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+    </div>
+  </form>
+</div> 
+<div class="wrapper-content">
+    <div id="wrapper">
+		<content>
+            <div class="profile-main-info">
+                <div class="profile-icon">
+                    <i class="fa fa-user-circle-o"></i>
+                </div>
+                <div class="profile-description">
+                    <div id="title">Логин</div>
+                    <div id="other-info">
+                        <label id="fullname">ФИО: Трофимов Е.В.</label>
+                        <label id="email">email: evgen.trofimov.2000@gmail.com</label>
+                        <label id="rating">Номер телефона: +375 29 817 47 53</label>
+                        <label id="edit"><a href="">Редактировать</a></label>   
+                    </div>
+                    
+                </div>
+            </div>
+        </content>
+        <content>
+            <div class="main-title">
+                <h1>Мои объявления</h1> 
+            </div>
+            <div class="content-list">
+                <div class="item">
+                    <div class="title-item"><a href="">Бездомный пёс гуляет по улице</a></div>
+                    <div class="content-item">
+                        <div class="img-block">
+                            <img src="img/dog1-template.jpg" alt="" width="300px">
+                        </div>
+                        <div class="descript">
+                            <div class="date">23 января 2019</div>
+                            <div class="text">Нашёл пса, спал на остановке.</div>
+                            <div class="location">
+                                Местоположение: ул. Интернациональная, 64
+                            </div>
+                            <div class="user-data">
+                                Контактные данные<br>
+                                Тел.: +375 29 817 47 53<br>
+                                ФИО: Трофимов Е.В.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title-item"><a href="">Бездомный котёнок ищет хозяина</a></div>
+                    <div class="content-item">
+                        <div class="img-block">
+                            <img src="img/cat1-template.webp" alt="" width="300px">
+                        </div>
+                        <div class="descript">
+                            <div class="text">Нашёл котёнка около подъезда.</div>
+                            <div class="location">
+                                Местоположение: ул. Интернациональная, 64
+                            </div>
+                            <div class="user-data">
+                                Контактные данные<br>
+                                Тел.: +375 29 817 47 53<br>
+                                ФИО: Трофимов Е.В.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="title-item"><a href="">Нашёлся хряк</a></div>
+                    <div class="content-item">
+                        <div class="img-block">
+                            <img src="img/pig1-template.jpg" alt="" width="300px">
+                        </div>
+                        <div class="descript">
+                            <div class="text">Нашёл хряка, спал в мусорке.</div>
+                            <div class="location">
+                                Местоположение: ул. Интернациональная, 64
+                            </div>
+                            <div class="user-data">
+                                Контактные данные<br>
+                                Тел.: +375 29 817 47 53<br>
+                                ФИО: Трофимов Е.В.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </content>
+    </div>
+    <div class="empty-line">
+        
+    </div>
+    <footer>
+        <div class="footer-content">
+            <div id="about">
+                © ФАНТАЗЕРЫ<br>2020 г. gstu.by
+            </div>
+            <div id="time">
+                
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script type="text/javascript" src="js/main.js">
+</script>
+<script type="text/javascript" src="js/filter-catalog.js">
+</script>
+</body>
+</html>
