@@ -6,7 +6,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Homeless.Dto;
-using Microsoft.AspNetCore.Http;
+using Homeless.Models;
+using Homeless.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,17 +15,17 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Homeless.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
 
         public AuthController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
             IConfiguration configuration
             )
         {
@@ -41,20 +42,31 @@ namespace Homeless.Controllers
             if (result.Succeeded)
             {
                 var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return GenerateJwtToken(model.Email, appUser);
+                ViewLogin login = new ViewLogin()
+                {
+                    Token = GenerateJwtToken(model.Email, appUser),
+                    User = new ViewUser
+                    {
+                        FullName = appUser.FullName,
+                        ImageUrl = appUser.ImageUrl
+                    }
+            };
+                return login;
             }
 
-            throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
+            return NotFound();
         }
 
         [HttpPost]
         public async Task<object> Register([FromBody] RegisterDto model)
         {
-            var user = new IdentityUser
+            var user = new User
             {
                 UserName = model.Email,
-                Email = model.Email
+                Email = model.Email,
+                FullName= model.FullName
             };
+
             var result = await _userManager.CreateAsync(user, model.Password);
 
             if (result.Succeeded)
@@ -66,7 +78,7 @@ namespace Homeless.Controllers
             throw new ApplicationException("UNKNOWN_ERROR");
         }
 
-        private object GenerateJwtToken(string email, IdentityUser user)
+        private string GenerateJwtToken(string email, IdentityUser user)
         {
             var claims = new List<Claim>
             {

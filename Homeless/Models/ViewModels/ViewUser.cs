@@ -1,16 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Homeless.Models
+namespace Homeless.Models.ViewModels
 {
-    public class User : IdentityUser
+    public class ViewUser
     {
         public string FullName { get; set; }
         public string ImageUrl { get; set; }
-
-        public virtual IEnumerable<Advert> Adverts { get; set; }
     }
 }

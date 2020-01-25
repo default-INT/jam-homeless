@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Homeless.Application;
@@ -44,6 +43,7 @@ namespace Homeless.Controllers
             return CreateViewAdvert(advert);
         }
 
+        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAdvert(int id, ViewAdvert advertView)
         {
@@ -80,6 +80,7 @@ namespace Homeless.Controllers
             return NoContent();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Advert>> PostAdvert(ViewAdvert advert)
         {
@@ -96,7 +97,7 @@ namespace Homeless.Controllers
             return CreatedAtAction("GetAdvert", new { id = advert.Id }, advert);
         }
 
-        // DELETE: api/Adverts/5
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Advert>> DeleteAdvert(int id)
         {
