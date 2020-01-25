@@ -1,11 +1,11 @@
 
 var profiles = [
-    {title: "first", images: ["img/dog1-template.jpg"]}, 
-    {title: "second", images: ["https://i.ytimg.com/vi/bWIb2h_733E/maxresdefault.jpg", "http://developer.intersoftsolutions.com/download/attachments/19992228/Overview.png?version=1&modificationDate=1434361495917&api=v2"]},
-    {title: "third", images: ["https://image.winudf.com/v2/image1/Y29tLmNhcm91c2VsLmJ1c19zY3JlZW5fMF8xNTUzNjE0MTY2XzAwNg/screen-0.jpg?fakeurl=1&type=.jpg", "https://image.winudf.com/v2/image/Y2Fyb3VzZWx3YWxscGFwZXIuc2FtLmNvbV9zY3JlZW5zaG90c18wXzc4OTljMWFm/screen-0.jpg?fakeurl=1&type=.jpg"]}
+    {images: ["img/dog1-template.jpg", "img/cat1-template.webp"]}, 
+    {images: ["https://i.ytimg.com/vi/bWIb2h_733E/maxresdefault.jpg", "http://developer.intersoftsolutions.com/download/attachments/19992228/Overview.png?version=1&modificationDate=1434361495917&api=v2"]},
+    {images: ["https://image.winudf.com/v2/image1/Y29tLmNhcm91c2VsLmJ1c19zY3JlZW5fMF8xNTUzNjE0MTY2XzAwNg/screen-0.jpg?fakeurl=1&type=.jpg", "https://image.winudf.com/v2/image/Y2Fyb3VzZWx3YWxscGFwZXIuc2FtLmNvbV9zY3JlZW5zaG90c18wXzc4OTljMWFm/screen-0.jpg?fakeurl=1&type=.jpg"]}
 ];
 
-var currentProfileNumber =- 1;
+var currentProfileNumber = -1;
 
 
 var mainCarouselIndicators;
@@ -26,12 +26,16 @@ function init() {
     
 }
 
+let title = function(content) {
+    return `<div class="title-block"><div id="title">` + content + `</div><div class="back"></div></div>`
+}
+
 function getActiveCarouselItem(imgUrl) {
-    return `<div class="carousel-item active"><img src="${imgUrl}" height="400px"></div>`;
+    return `<div class="carousel-item active"><img src="${imgUrl}"  ></div>`;
 }
 
 function getCarouselItem(imgUrl) {
-    return `<div class="carousel-item"><img src="${imgUrl}" height="400px"></div>`;
+    return title("Пропал кот") + `<div class="carousel-item"><img src="${imgUrl}"></div>`;
 }
 
 function getActiveCarouselIndicator() {
@@ -72,6 +76,14 @@ function prev() {
     createCarouselFromProfile(profiles[currentProfileNumber]);
 }
 
-$('.carousel').carousel({
-    interval: 1000000
-});
+function createAdvert() {
+    let createForm = document.getElementById('create-advert');
+    if (createForm.style.display != "none") {
+        createForm.style.display = "none";
+        advertSlider.style.display = "block";
+    } else {
+        //
+        createForm.style.display = "inline-block";
+        advertSlider.style.display = "none";
+    }
+}

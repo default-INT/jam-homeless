@@ -42,7 +42,6 @@ menu {
   display: inline-block;
   overflow-y: auto;
   scrollbar-width: none;
-  z-index: 2;
 }
 
 header {
@@ -517,7 +516,7 @@ input[type = "text"]:focus, input[type = "password"]:focus, select:hover, textar
 main {
   height: 100%;
   width: 700px;
-  display: none;
+  display: inline-block;
   overflow-y: auto;
   background: whitesmoke; 
   box-shadow: 0 0 8px 5px rgba(0,0,0,.2);
@@ -547,33 +546,4 @@ main {
   /*! background: whitesmoke; */
   /*! grid-template-rows: 100%; */
   height: 100%;
-  
-}
-
-.main-content .slider .title-block {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  color: white;
-  z-index: 1;
-  height: 60px;
-}
-
-.main-content .slider .title-block #title {
-  position: absolute;
-  width: 100%;
-  font-size: 21pt;
-  z-index: 2;
-}
-
-.main-content .slider .title-block .back {
-  position: absolute;
-  background: black;
-  width: 100%;
-  height: 100%;
-  opacity: 0.8;
-}
-
-.carousel-indicators {
-  top: 15px !important;
 }
