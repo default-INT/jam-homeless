@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Homeless.Application
 {
-    public class HomelessContext : DbContext
+    public class HomelessContext : IdentityDbContext
     {
         public HomelessContext(DbContextOptions<HomelessContext> options) : base(options)
         {
@@ -17,6 +18,5 @@ namespace Homeless.Application
         public virtual DbSet<Models.Advert> Adverts { get; set; }
         public virtual DbSet<Models.Banned> Banneds { get; set; }
         public virtual DbSet<Models.Like> Likes { get; set; }
-        public virtual DbSet<Models.User> Users { get; set; }
     }
 }

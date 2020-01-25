@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Homeless.Application;
 using Homeless.Models;
 using Homeless.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Homeless.Controllers
 {
@@ -22,12 +23,14 @@ namespace Homeless.Controllers
             _context = context;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ViewAdvert>>> GetAdverts()
         {
             return await _context.Adverts.Select(advert => CreateViewAdvert(advert)).ToListAsync();
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<ViewAdvert>> GetAdvert(int id)
         {
