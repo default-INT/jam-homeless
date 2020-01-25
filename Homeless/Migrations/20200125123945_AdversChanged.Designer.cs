@@ -4,14 +4,16 @@ using Homeless.Application;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Homeless.Migrations
 {
     [DbContext(typeof(HomelessContext))]
-    partial class HomelessContextModelSnapshot : ModelSnapshot
+    [Migration("20200125123945_AdversChanged")]
+    partial class AdversChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

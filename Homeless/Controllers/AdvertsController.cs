@@ -114,7 +114,7 @@ namespace Homeless.Controllers
             return _context.Adverts.Any(e => e.Id == id);
         }
 
-        private ViewAdvert CreateViewAdvert(Advert advert)
+        private static ViewAdvert CreateViewAdvert(Advert advert)
         {
             return new ViewAdvert
             {
