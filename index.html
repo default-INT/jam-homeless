@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div id="mainCarousel" class="carousel slide col-8" data-ride="carousel">
+        <ol id="mainCarouselIndicators" class="carousel-indicators">
+          <li data-target="#mainCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#mainCarousel" data-slide-to="1"></li>
+          <li data-target="#mainCarousel" data-slide-to="2"></li>
+        </ol>
+        <div id="mainCarouselInner" class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://avatars.mds.yandex.net/get-zen_doc/1537151/pub_5cbf10fa88da1e00b5609c75_5cbf119355863600b3c2c731/scale_1200" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="https://avatars.mds.yandex.net/get-pdb/1534889/0e2ea796-75ac-41b5-ba05-50b3b3906416/s1200" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="https://avatars.mds.yandex.net/get-pdb/754739/71e301a3-92e9-42ad-9688-9cb610c32f73/s1200" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#mainCarousel" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Предыдущая</span>
+        </a>
+        <a class="carousel-control-next" href="#mainCarousel" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Следующая</span>
+        </a>
+      </div>
+
+      <div>
+          <button onclick="next()">Предыдущее объявление</button>
+          <button onclick="prev()">Следующее объявление</button>
+      </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+</html>
