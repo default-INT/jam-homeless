@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>homeless</title>
+	<link rel="stylesheet" href="css/main.css">
+	<link rel="stylesheet" href="css/window-dialog.css">
+	<link rel="stylesheet" href="css/catalog-style.css">
+	<link rel="stylesheet" href="css/item-style.css">
+	<link rel="stylesheet" href="css/create-form.css">
+	<link rel="stylesheet" href="css/slider.css">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+</head>
+<body>
+	<div class="main-content">
+		<menu>
+			<header>
+				<h1>
+					homeless
+					<img src="img/logo.png">
+				</h1>
+				<!--
+				<div id="user" class="menu">
+					<div id="login">Гость</div>
+					<ul class="submenu" id="user-sidebar">
+						<li onclick="document.getElementById('login-form').style.display='block'"><a class="link"  >Войти</a></li>
+						<li onclick="document.getElementById('registration-form').style.display='block'"><a class="link" >Зарегистрироваться</a></li>
+					</ul>
+				</div>
+				-->
+			</header>
+			<div class="profile-menu">
+				<div id="avatar-img">
+					<img id="avatar" src="img/play_cat.webp" alt="" width="140px">
+				</div>
+				<div id="fullname">
+					Трофимов Е.В.
+				</div>
+			</div>
+			<div class="menu-conteiner">
+				<div class="choice-section">
+					<div id="my-advert">
+						Мои объявления
+					</div>
+					<div id="message">
+						Сообщения
+					</div>
+				</div>
+				<div class="add-item" onclick="openFormCreateAdvert()">
+					<div class="add-icon">
+						+
+					</div>
+					<div class="title">
+						Добавить новое объявление
+					</div>
+				</div>
+				<div class="content-list prevent-scroll" id="itemList">
+
+					
+			</div>
+		</menu>
+		<div id="dataContainer" style="display: none;">
+			<main id="create-advert">
+				<div class="content-window">
+					<div class="title">Добавить новое объявление</div>
+					<div id="content-window">
+						<div class="descript-advert" style="display: none;">
+							<label>Описание</label>
+							<div id="descriptAdvert">
+								Обратилась девушка, судя по разговору и фото несовершеннолетняя. На аэродроме возле ТЦ нашла щенка вечером, бабушка разрешила ребенку оставить собаку на несколько дней.
+							</div>
+							<label>Город</label>
+							<div id="city">Гомель</div>
+							<label>Класс</label>
+							<div id="class">Собака</div>
+							<label>Окраска</label>
+							<div id="class">Серый</div>
+							<label>Возраст</label>
+							<div id="class">12 лет</div>
+						</div>
+						<div class="create-form">
+							<div class="input-form">
+								<form class="enter_form" id="advertForm">
+									<div class="input-content">
+										<label>Введите заголовок объявления</label>
+										<input type="text" placeholder="Заголовок" name="title">
+										<!--
+										<label>Возраст питомца, года</label>
+										<input type="text"  placeholder="3" name="title">
+
+										<label>Выберите окраску</label>
+										<select>
+											<option>Желтый</option>
+											<option>Синий</option>
+											<option>Тигр</option>
+										</select>
+										-->
+										<label>Выберите класс</label>
+										<select name="animalType">
+											<option value="0">Кот</option>
+											<option value="1">Собака</option>
+											<option value="2">Другое</option>
+										</select>
+										<label>Введите описание объявления</label>
+										<textarea type="text" rows="6" placeholder="Описание питомца (500 символов)" name="descript"></textarea>
+									</div>
+									<a href="javascript: createAdvert();"><button style="background: green"><i aria-hidden="true" class="fa fa-search" id="addBtnAdv"""> </i> Добавить</button></a>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</main>
+			<div class="photos">
+				<div id="photoTitle">
+					Фотографии
+				</div>
+				<input type="file" name="photo" id="uploadImg" multiple accept="image/*,image/jpeg" onchange="encodeImageFileAsURL(this)">
+				<div class="item">
+					<div class="photo-box">
+						<img src="img/upload.png" alt="">
+					</div>
+				</div>
+				<div class="photo-list">
+					<div class="item">
+						<div class="photo-box">
+							<img src="img/upload.png" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<aside id="advertSlider">
+			<div class="slider">
+				<div id="mainCarousel" class="carousel animal-slider slide col-8" data-ride="carousel">
+					<ol id="mainCarouselIndicators" class="carousel-indicators">
+					</ol>
+					<div id="mainCarouselInner" class="carousel-inner">
+						<div class="title-block">
+							<div id="title">Пропал кот</div>
+							<div class="back"></div>
+						</div>
+					</div>
+					<a class="carousel-control-prev" href="#mainCarousel" role="button" data-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="sr-only">Предыдущая</span>
+					</a>
+					<a class="carousel-control-next" href="#mainCarousel" role="button" data-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="sr-only">Следующая</span>
+					</a>
+				</div>
+				<div class="navigation-bar">
+					<button onclick="next()" class="dislike nav-btn"><img src="img/X2.png" width="50px"></button>
+					<button onclick="prev()" class="like nav-btn"><img src="img/foot.png" alt=""></button>
+				</div>
+			</div>
+		</aside>
+	</div>
+
+
+	<div id="login-form" class="modal">
+		<span onclick="document.getElementById('login-form').style.display='none'"
+			  class="close" title="Close Modal">&times;</span>
+
+		<!-- Modal Content -->
+		<form class="modal-content animate" id="auth-form">
+			<div class="container">
+				<h1>Авторизация</h1>
+
+				<input type="text" placeholder="Введите логин" name="login" required><br>
+				<input type="password" placeholder="Введите пароль" name="password" required><br>
+				<label class="msg"></label>
+				<button type="button" id="login-button" onclick="logInUser()">ВОЙТИ</button>
+
+			</div>
+		</form>
+	</div>
+	<div id="registration-form" class="modal">
+		<span onclick="document.getElementById('registration-form').style.display='none'"
+			  class="close" title="Close Modal">&times;</span>
+
+		<form class="modal-content animate" method="POST" id="reg-form">
+			<div class="container">
+				<h1>Регистрация</h1>
+
+				<input type="text" placeholder="Введите логин" name="login" required><br>
+				<input type="password" placeholder="Введите пароль" name="password" required><br>
+				<input type="password" placeholder="Повторите пароль" name="retryPasswrod" required><br>
+				<input type="text" placeholder="Введите электронную почту" name="email" required><br>
+				<label class="msg"></label>
+				<button type="button" id="reg-button" onclick="signUpUser()">ЗАРЕГИСТРИРОВАТЬСЯ</button>
+			</div>
+		</form>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="js/slider.js">
+	</script>
+	<script type="text/javascript" src="js/main.js">
+	</script>
+</body>
+</html>

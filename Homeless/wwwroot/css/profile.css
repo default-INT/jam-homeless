@@ -1,0 +1,85 @@
+/*
+ * start profile descript
+*/
+
+.profile-main-info {
+  height: 350px;
+  display: grid;
+  grid-template-columns: 	180px auto;
+}
+
+.profile-main-info *{
+  display: inline-block;
+  position: relative;
+}
+
+.profile-icon {
+  width: 180px;
+  height: 180px;
+  text-align: center;
+  font-size: 100pt;
+  margin-left: 20px;
+  margin-top: 20px;
+  color: #ff6e6e;
+}
+
+.profile-description * {
+  font-size: 16pt;
+  width: 40%;
+}
+
+#other-info {
+  margin-top: 40px;
+  margin-left: 60px;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 	1fr 1fr;
+  grid-row-gap: 20px;
+}
+
+#other-info *{
+  width: 100%;
+
+}
+
+.profile-main-info #title {
+  font-size: 70pt;
+  width: 100%;
+  margin-left: 60px;
+  padding-bottom: 20px;
+}
+
+#other-info #edit {
+  color: purple;
+}
+
+/*
+ * end profile descript
+ * --------------------------
+ * start profile course
+*/
+
+.choice-list {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 	1fr 1fr 1fr;
+  border-bottom: 4px whitesmoke solid;
+}
+
+.choice-list * {
+  text-align: center;
+  font-size: 26pt;
+  padding-top: 10px;
+  height: 60px;
+  border-right: 4px whitesmoke solid;
+}
+
+.choice-list *:hover{
+  background: #6ACAB4;
+  transition: .5s ease-in-out;
+  cursor: pointer;
+}
+
+.choice-list *:last-child {
+  border-right: none;
+}

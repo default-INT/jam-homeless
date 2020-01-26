@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -13,17 +13,17 @@
 		<content style="width: 550px">
 			<h2 id="title">Авторизация</h2>
 			<div class="create-form">
-				
+
 				<div class="input-form" style="width: 100%;">
-					<form class="enter_form" id="authForm" >
+					<form class="enter_form" id="authForm">
 						<div class="input-content">
 							<input type="text" placeholder="email" name="email">
 							<input type="password" placeholder="Пароль" name="password">
-							<a href="/registration.html">Регистрация</a>
 						</div>
+						<a href="/registration.html" style="text-align: center; display: block;" id="regLink">Регистрация</a>
 						<div id="msg"></div>
 						<button id="loginBtn" style="background: green; width: 430px; margin-left: 50px; margin-top: 20px"><i aria-hidden="true" class="fa fa-search"> </i> Войти</button>
-					</form>		
+					</form>
 				</div>
 			</div>
 		</content>
@@ -48,32 +48,32 @@
 		httpRequest.responseType = "json";
 		httpRequest.setRequestHeader('Content-Type', 'application/json');
 		let json = JSON.stringify({
-            Email: authFormData.get("email"),
-            Password: authFormData.get("password")	
-        });
+			Email: authFormData.get("email"),
+			Password: authFormData.get("password")
+		});
 		httpRequest.send(json);
 		msg.innerHTML = "Ждём ответа сервера...";
 		httpRequest.onload = () => {
-	        if (httpRequest.status == 200) {
-	            let response = httpRequest.response;
-	            //alert(token);
-	            if (response.token != undefined) {
-	            	localStorage.setItem("token", response.token);
-	            	localStorage.setItem("fullname", response.user.fullName);
-	            	if (response.user.imageUrl != null) {
-	            		localStorage.setItem("avatarUrl", response.user.imageUrl);
-	            	} else {
-	            		localStorage.setItem("avatarUrl", "img/avatar.jpg");
-	            	}
-	            	
-	            	window.location = 'layout-Tinder.html';
-	            } else {
-	            	msg.innerHTML = "Неудалось авторизация";
-	            }
-	        } else {
-	        	msg.innerHTML = "Неверный логин, или пароль";
-	        }
-	    }	
+			if (httpRequest.status == 200) {
+				let response = httpRequest.response;
+				//alert(token);
+				if (response.token != undefined) {
+					localStorage.setItem("token", response.token);
+					localStorage.setItem("fullname", response.user.fullName);
+					if (response.user.imageUrl != null) {
+						localStorage.setItem("avatarUrl", response.user.imageUrl);
+					} else {
+						localStorage.setItem("avatarUrl", "img/avatar.jpg");
+					}
+
+					window.location = 'layout-Tinder.html';
+				} else {
+					msg.innerHTML = "Неудалось авторизация";
+				}
+			} else {
+				msg.innerHTML = "Неверный логин, или пароль";
+			}
+		}
 	}
 </script>
 </html>
