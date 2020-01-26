@@ -11,6 +11,8 @@ namespace Homeless.Models
         public string FullName { get; set; }
         public string ImageUrl { get; set; }
 
+        public int Reputation { get; set; } = 5;
+
         public virtual IEnumerable<Advert> Adverts { get; set; }
     }
 }

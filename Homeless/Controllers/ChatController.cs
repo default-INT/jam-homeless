@@ -52,7 +52,5 @@ namespace Homeless.Controllers
                 .Where(a => a.UserId.Equals(id) && (a.User2Id == user2Id.ToString())) // тут .tostring смущает
                 .ToListAsync();
         }
-
-
     }
 }
