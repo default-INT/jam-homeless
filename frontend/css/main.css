@@ -42,7 +42,7 @@ menu {
   display: inline-block;
   overflow-y: auto;
   scrollbar-width: none;
-  z-index: 2;
+  z-index: 1;
 }
 
 header {
@@ -522,6 +522,7 @@ main {
   background: whitesmoke; 
   box-shadow: 0 0 8px 5px rgba(0,0,0,.2);
   scrollbar-width: none;
+  z-index: 2;
 }
 
 .content-window {
@@ -576,4 +577,54 @@ main {
 
 .carousel-indicators {
   top: 15px !important;
+}
+
+#dataContainer {
+  display: grid;
+  grid-template-columns: 700px auto;
+  grid-template-rows: auto;
+  height: 100%;
+  z-index: 2;
+  background: whitesmoke;
+  grid-gap: 0px;
+}
+
+#dataContainer #create-advert {
+  display: inline-block;
+}
+
+.photos {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+.photos #photoTitle {
+  font-size: 24pt;
+  padding-bottom: 10px;
+  border-bottom: 4px white solid;
+  
+}
+
+.photos .item {
+  margin-top: 20px;
+}
+
+.photos .item img {
+  height: 200px;
+}
+
+.descript-advert {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+}
+
+.descript-advert {
+  font-size: 13pt;
+}
+
+.descript-advert label {
+  font-size: 22pt;
 }

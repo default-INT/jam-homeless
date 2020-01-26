@@ -1,5 +1,7 @@
 "use strict"
 
+let url = "https://192.168.43.30:5001";
+
 let links = Array.from(document.getElementsByClassName("link"));
 
 let loginRegEx = /^[a-zA-z]{1}[a-zA-Z1-9_]{3,20}$/i;
@@ -7,6 +9,9 @@ let passRegEx = /^[a-zA-z]{1}[a-zA-Z0-9_/!/@/#/$/%/&]{3,20}$/i;
 let emailRegEx = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/
 
 let msgColor = document.getElementsByClassName("msg")[0].style.color;
+
+let defaultImgUrl = "img/dog1-template.jpg";
+
 
 /*
 for (let i = 0; i < links.length; i++) {
@@ -20,6 +25,114 @@ let user;
 
 setValidation();
 loadPageOnStart();
+
+setUserData();
+
+function setUserData() {
+    avatar.src = localStorage.getItem("avatarUrl");
+    fullname.innerHTML = localStorage.getItem("fullname");
+}
+
+function getAdverts() {
+    let httpRequest = new XMLHttpRequest();
+
+    httpRequest.open("GET", url + "/api/adverts");
+    httpRequest.responseType = "json";
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    httpRequest.send();
+
+    httpRequest.onload = () => {
+        if (httpRequest.status == 200) {
+            let adverts = httpRequest.response;
+
+            if (adverts === undefined) {
+                return;
+            } else if (adverts == null) {
+                //notHavePages
+                return;
+            }
+            profiles = [];
+            adverts.forEach((advert, index, adverts) => {
+                if (advert.imageUrls == null || advert.imageUrls == "") {
+                    advert.imageUrls = [defaultImgUrl];
+                }
+                profiles.push({
+                    images: advert.imageUrls,
+                    title: advert.title
+                });
+            });
+            next();
+        }
+    }
+}
+
+function getMyAdverts() {
+    let httpRequest = new XMLHttpRequest();
+
+    httpRequest.open("GET", url + "/api/adverts");
+    httpRequest.responseType = "json";
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    httpRequest.send();
+
+    httpRequest.onload = () => {
+        if (httpRequest.status == 200) {
+            let adverts = httpRequest.token;
+
+            if (adverts == numbers || adverts.length == 0) {
+                return;
+            }
+
+            itemList.innerHTML = "";
+
+            adverts.forEach((advert, index, adverts) => {
+                itemList.appendChild(getAdvertHTML(advert));
+            });
+            if (token != undefined) {
+                localStorage.setItem("token", token);
+                localStorage.setItem("fullname", token);
+                localStorage.setItem("avatarUrl", token);
+                window.location = 'layout-Tinder.html';
+            }
+        } else {
+            let advert = {
+                title: "Не удалось загрузить данные",
+                imageUrls: [defaultImgUrl]
+            }
+            itemList.appendChild(getAdvertHTML(advert));
+        }
+    }
+}
+
+function getAdvertHTML(advert) {
+    let item = document.createElement("div");
+    item.class = "item";
+
+    let itemImg = document.createElement("div");
+    itemImg.class = "item-img";
+
+    let img = document.createElement("img");
+    if (advert.imageUrls != undefined && advert.imageUrls != null) {
+        img.src = advert.imageUrls[0];    
+    }
+    
+    img.alt = defaultImgUrl;
+
+
+    itemImg.appendChild(img);
+
+    let title = document.createElement("div");
+    title.class = "title";
+    title.innerHTML = advert.title;
+
+    item.appendChild(itemImg);
+    item.appendChild(title);
+
+    return item;
+}
+
+
+// old method
+
 
 let submenus = Array.from(document.getElementsByClassName("menu"));
 
