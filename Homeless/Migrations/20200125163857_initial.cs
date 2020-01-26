@@ -84,14 +84,13 @@ namespace Homeless.Migrations
                     UserId = table.Column<string>(nullable: false),
                     AnimalType = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: true),
-                    UserId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Adverts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Adverts_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Adverts_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -189,8 +188,7 @@ namespace Homeless.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AdvertId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false),
-                    ForUserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -202,8 +200,8 @@ namespace Homeless.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Banneds_AspNetUsers_ForUserId",
-                        column: x => x.ForUserId,
+                        name: "FK_Banneds_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -216,8 +214,7 @@ namespace Homeless.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AdvertId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false),
-                    LikeFromUserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -229,8 +226,8 @@ namespace Homeless.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Likes_AspNetUsers_LikeFromUserId",
-                        column: x => x.LikeFromUserId,
+                        name: "FK_Likes_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
