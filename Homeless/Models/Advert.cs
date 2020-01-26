@@ -11,7 +11,7 @@ namespace Homeless.Models
         public string Title { get; set; }
         public string ImageUrls { get; set; }
         public string Information { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public AnimalType AnimalType { get; set; }
         public bool? IsDeleted { get; set; }
 

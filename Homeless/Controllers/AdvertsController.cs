@@ -8,28 +8,32 @@ using Homeless.Application;
 using Homeless.Models;
 using Homeless.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Homeless.Application.Validate;
 
 namespace Homeless.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AdvertsController : ControllerBase
     {
         private readonly HomelessContext _context;
+        private readonly IValidator<Advert> advertValidator;
 
         public AdvertsController(HomelessContext context)
         {
             _context = context;
+            advertValidator = new AdvertValidator();
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ViewAdvert>>> GetAdverts()
         {
-            return await _context.Adverts.Select(advert => CreateViewAdvert(advert)).ToListAsync();
+            return await _context.Adverts
+                .Select(advert => CreateViewAdvert(advert))
+                .ToListAsync();
         }
 
-        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<ViewAdvert>> GetAdvert(int id)
         {
@@ -43,11 +47,10 @@ namespace Homeless.Controllers
             return CreateViewAdvert(advert);
         }
 
-        [Authorize]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAdvert(int id, ViewAdvert advertView)
         {
-            if (id != advertView.Id)
+            if (advertView == null || id != advertView.Id)
             {
                 return BadRequest();
             }
@@ -59,6 +62,8 @@ namespace Homeless.Controllers
             advert.ImageUrls = advertView.ImageUrls;
             advert.AnimalType = advertView.AnimalType;
 
+            if (!advertValidator.IsValid(advert)) return BadRequest();
+
             _context.Entry(advert).State = EntityState.Modified;
 
             try
@@ -67,7 +72,7 @@ namespace Homeless.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!AdvertExists(id))
+                if (!AdvertExists(id, _context))
                 {
                     return NotFound();
                 }
@@ -80,24 +85,26 @@ namespace Homeless.Controllers
             return NoContent();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<ActionResult<Advert>> PostAdvert(ViewAdvert advert)
         {
-            _context.Adverts.Add(new Advert
+            Advert resultAdvert = new Advert
             {
                 ImageUrls = advert.ImageUrls,
                 Information = advert.Information,
                 Title = advert.Title,
                 AnimalType = advert.AnimalType
-            });
+            };
+
+            if (!advertValidator.IsValid(resultAdvert)) return BadRequest();
+
+            _context.Adverts.Add(resultAdvert);
 
             await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetAdvert", new { id = advert.Id }, advert);
+            advert.Id = resultAdvert.Id;
+            return CreatedAtAction("GetAdvert", new { id = resultAdvert.Id }, advert);
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Advert>> DeleteAdvert(int id)
         {
@@ -113,12 +120,12 @@ namespace Homeless.Controllers
             return advert;
         }
 
-        private bool AdvertExists(int id)
+        public static bool AdvertExists(int id, HomelessContext context)
         {
-            return _context.Adverts.Any(e => e.Id == id);
+            return context.Adverts.Any(e => e.Id == id);
         }
 
-        private static ViewAdvert CreateViewAdvert(Advert advert)
+        public static ViewAdvert CreateViewAdvert(Advert advert)
         {
             return new ViewAdvert
             {

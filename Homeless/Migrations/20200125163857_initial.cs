@@ -44,7 +44,7 @@ namespace Homeless.Migrations
                     FullName = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
                     Phone = table.Column<string>(nullable: true),
-                    About = table.Column<string>(nullable: true)
+                    ImageUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -81,7 +81,7 @@ namespace Homeless.Migrations
                     Title = table.Column<string>(nullable: true),
                     ImageUrls = table.Column<string>(nullable: true),
                     Information = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
                     AnimalType = table.Column<int>(nullable: false),
                     IsDeleted = table.Column<bool>(nullable: true),
                     UserId1 = table.Column<string>(nullable: true)
@@ -189,7 +189,7 @@ namespace Homeless.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AdvertId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
                     ForUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -216,7 +216,7 @@ namespace Homeless.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AdvertId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
                     LikeFromUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
