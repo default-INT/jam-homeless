@@ -24,19 +24,19 @@ let mainCarouselInner;
 init();
 
 
+function title(content) {
+    return `<div class="title-block"><div id="title">` + content + `</div><div class="back"></div></div>`
+}
+
 function init() {
     mainCarouselIndicators = document.getElementById("mainCarouselIndicators");
     mainCarouselInner = document.getElementById("mainCarouselInner");
 
     if (profiles.length > 0) {
-        currentProfileNumber = 0;
+        next();
     }
 
     
-}
-
-let title = function(content) {
-    return `<div class="title-block"><div id="title">` + content + `</div><div class="back"></div></div>`
 }
 
 function getActiveCarouselItem(imgUrl) {

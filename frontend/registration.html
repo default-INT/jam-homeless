@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Авторизация</title>
+	<title>Регистрация</title>
 	<link rel="stylesheet" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/login.css">
 	<link rel="stylesheet" type="text/css" href="css/create-form.css">
@@ -20,7 +20,7 @@
 							<input type="text" placeholder="email" name="email">
 							<input type="password" placeholder="Пароль" name="password">
 							<input type="password" placeholder="Повторите пароль" name="retryPassword">
-							<input type="password" placeholder="ФИО" name="fullname">
+							<input type="text" placeholder="ФИО" name="fullname">
 						</div>
 						<div id="msg"></div>
 						<button id="loginBtn" style="background: green; width: 430px; margin-left: 50px; margin-top: 20px"><i aria-hidden="true" class="fa fa-search"> </i>Зарегистрироваться</button>
@@ -35,11 +35,11 @@
 
 	let url = "https://192.168.43.20:5001";
 
-	authForm.addEventListener("submit", (e) => {
+	regForm.addEventListener("submit", (e) => {
 		e.preventDefault();
 	});
 
-	loginBtn.addEventListener("click", login);
+	loginBtn.addEventListener("click", registration);
 
 	function registration() {
 
@@ -48,17 +48,15 @@
 
 		if (regFormData.get("password") != regFormData.get("retryPassword")) {
 			msg.style.color = "red";
-			msg.innerHTML = "Пароли несовпадавют!"ж
+			msg.innerHTML = "Пароли несовпадают!";
 			return;
 		}
 
-		httpRequest.open("POST", url + "/api/auth/registration");
-		httpRequest.responseType = "json";
+		httpRequest.open("POST", url + "/api/auth/register");
 		httpRequest.setRequestHeader('Content-Type', 'application/json');
 		let json = JSON.stringify({
             email: regFormData.get("email"),
             password: regFormData.get("password"),
-            ImageUrl: "img/foot.png",
             fullName: regFormData.get("fullname")
         });
 		httpRequest.send(json);
@@ -67,49 +65,19 @@
 		msg.innerHTML = "Ждём ответа сервера...";
 
 		httpRequest.onload = () => {
-			alert(httpRequest);
 	        if (httpRequest.status == 200) {
-	            let token = httpRequest.token;
+	            let token = httpRequest.response;
 	            if (token != undefined) {
 	            	localStorage.setItem("token", token);
 	            	localStorage.setItem("fullname", regFormData.get("fullname"));
-	            	localStorage.setItem("avatarUrl", "img/foot.png");
-	            	
+	            	localStorage.setItem("avatarUrl", "img/avatar.jpg");
+
 	            	window.location = 'layout-Tinder.html';
 	            }
 	        } else {
-	        	msg = "Неверный логин, или пароль";
+	        	msg.innerHTML = "Неверный логин, или пароль";
 	        }
 	    }		
-	}
-
-	function login() {
-		let httpRequest = new XMLHttpRequest();
-		let authFormData = new FormData(authForm);
-
-		httpRequest.open("POST", url + "/api/auth/login");
-		httpRequest.responseType = "json";
-		httpRequest.setRequestHeader('Content-Type', 'application/json');
-		let json = JSON.stringify({
-            Email: authFormData.get("email"),
-            Password: authFormData.get("password")	
-        });
-		httpRequest.send(json);
-		msg.innerHTML = "Ждём ответа сервера...";
-		httpRequest.onload = () => {
-			alert(httpRequest);
-	        if (httpRequest.status == 200) {
-	            let token = httpRequest.token;
-	            if (token != undefined) {
-	            	localStorage.setItem("token", token);
-	            	localStorage.setItem("fullname", token);
-	            	localStorage.setItem("avatarUrl", token);
-	            	window.location = 'layout-Tinder.html';
-	            }
-	        } else {
-	        	msg = "Неверный логин, или пароль";
-	        }
-	    }	
 	}
 </script>
 </html>

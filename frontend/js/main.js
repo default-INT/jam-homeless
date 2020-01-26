@@ -1,6 +1,6 @@
 "use strict"
 
-let url = "https://192.168.43.30:5001";
+let url = "https://192.168.43.20:5001";
 
 let links = Array.from(document.getElementsByClassName("link"));
 
@@ -10,7 +10,7 @@ let emailRegEx = /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z
 
 let msgColor = document.getElementsByClassName("msg")[0].style.color;
 
-let defaultImgUrl = "img/dog1-template.jpg";
+let defaultImgUrl = "img/sad-smile-fix.jpg";
 
 
 /*
@@ -23,10 +23,10 @@ for (let i = 0; i < links.length; i++) {
 
 let user;
 
-setValidation();
 loadPageOnStart();
 
 setUserData();
+getMyAdverts()
 
 function setUserData() {
     avatar.src = localStorage.getItem("avatarUrl");
@@ -39,6 +39,7 @@ function getAdverts() {
     httpRequest.open("GET", url + "/api/adverts");
     httpRequest.responseType = "json";
     httpRequest.setRequestHeader('Content-Type', 'application/json');
+    httpRequest.setRequestHeader('authorization', 'Bearer ' + localStorage.getItem("token"));
     httpRequest.send();
 
     httpRequest.onload = () => {
@@ -66,33 +67,73 @@ function getAdverts() {
     }
 }
 
-function getMyAdverts() {
+
+function getAdvert(id) {
     let httpRequest = new XMLHttpRequest();
 
-    httpRequest.open("GET", url + "/api/adverts");
+    httpRequest.open("GET", url + "/api/profile/adverts/" + id);
     httpRequest.responseType = "json";
     httpRequest.setRequestHeader('Content-Type', 'application/json');
+    httpRequest.setRequestHeader('authorization', 'Bearer ' + localStorage.getItem("token"));
     httpRequest.send();
 
     httpRequest.onload = () => {
         if (httpRequest.status == 200) {
-            let adverts = httpRequest.token;
-
-            if (adverts == numbers || adverts.length == 0) {
-                return;
-            }
+            let adverts = httpRequest.response;
 
             itemList.innerHTML = "";
+
+            if (adverts == null || adverts.length == 0) {
+                let advert = {
+                    title: "У вас нету объявлений",
+                    imageUrls: [defaultImgUrl]
+                }
+                itemList.appendChild(getAdvertHTML(advert));    
+                return;
+            }
 
             adverts.forEach((advert, index, adverts) => {
                 itemList.appendChild(getAdvertHTML(advert));
             });
-            if (token != undefined) {
-                localStorage.setItem("token", token);
-                localStorage.setItem("fullname", token);
-                localStorage.setItem("avatarUrl", token);
-                window.location = 'layout-Tinder.html';
+
+        } else {
+            let advert = {
+                title: "Не удалось загрузить данные",
+                imageUrls: [defaultImgUrl]
             }
+            itemList.appendChild(getAdvertHTML(advert));
+        }
+    }
+}
+
+function getMyAdverts() {
+    let httpRequest = new XMLHttpRequest();
+
+    httpRequest.open("GET", url + "/api/profile/adverts");
+    httpRequest.responseType = "json";
+    httpRequest.setRequestHeader('Content-Type', 'application/json');
+    httpRequest.setRequestHeader('authorization', 'Bearer ' + localStorage.getItem("token"));
+    httpRequest.send();
+
+    httpRequest.onload = () => {
+        if (httpRequest.status == 200) {
+            let adverts = httpRequest.response;
+
+            itemList.innerHTML = "";
+
+            if (adverts == null || adverts.length == 0) {
+                let advert = {
+                    title: "У вас нету объявлений",
+                    imageUrls: [defaultImgUrl]
+                }
+                itemList.appendChild(getAdvertHTML(advert));    
+                return;
+            }
+
+            adverts.forEach((advert, index, adverts) => {
+                itemList.appendChild(getAdvertHTML(advert));
+            });
+
         } else {
             let advert = {
                 title: "Не удалось загрузить данные",
@@ -105,12 +146,13 @@ function getMyAdverts() {
 
 function getAdvertHTML(advert) {
     let item = document.createElement("div");
-    item.class = "item";
+    item.classList.add("item");
 
     let itemImg = document.createElement("div");
-    itemImg.class = "item-img";
+    itemImg.classList.add("item-img");
 
     let img = document.createElement("img");
+    img.style.width = "140px";
     if (advert.imageUrls != undefined && advert.imageUrls != null) {
         img.src = advert.imageUrls[0];    
     }
@@ -121,7 +163,7 @@ function getAdvertHTML(advert) {
     itemImg.appendChild(img);
 
     let title = document.createElement("div");
-    title.class = "title";
+    title.classList.add("title");
     title.innerHTML = advert.title;
 
     item.appendChild(itemImg);
@@ -387,71 +429,6 @@ function exit() {
 
     userSidebar.appendChild(li);
     loadPageOnStart();
-}
-
-function clearForms() {
-    let forms = Array.from(document.querySelectorAll('input'));
-    let msgs = Array.from(document.querySelectorAll('.msg'));
-
-    forms.forEach((form, index, forms) => form.value = "");
-
-    msgs.forEach((msg, index, msgs) => msg.innerHTML = "");
-
-}
-
-function isLoginValidation(login) {
-    return loginRegEx.test(login);
-}
-
-function isPassValidation(password) {
-    return passRegEx.test(password);
-}
-
-function isEmailValidation(email) {
-    return emailRegEx.test(email);
-}
-
-function setValidation() {
-    let loginForms = Array.from(document.getElementsByName("login"));
-    let passForms = Array.from(document.querySelectorAll("input[type='password']"));
-    let emailForms = Array.from(document.getElementsByName("email"));
-
-    emailForms.forEach((form, index, emailForms) => {
-        form.addEventListener("change", function() {
-            if (!emailRegEx.test(this.value)) {
-                this.style.color = "red";
-            } else {
-                this.style.color = "black";
-            }
-        });
-    });
-
-    passForms.forEach((form, index, passForms) => {
-        form.addEventListener("change", function() {
-            if (!passRegEx.test(this.value)) {
-                this.style.color = "red";
-            } else {
-                this.style.color = "black";
-            }
-        });
-    });
-
-    loginForms.forEach((form, index, loginForms) => {
-        form.addEventListener("change", function() {
-            if (!loginRegEx.test(this.value)) {
-                this.style.color = "red";
-            } else {
-                this.style.color = "black";
-            }
-        });
-    });    
-}
-
-//https://yandex.by/maps/21274/mozyr/search/мозырь ул.интернациональная 64/
-
-function openMap() {
-    let url = "https://yandex.by/maps/21274/mozyr/search/" + city.innerHTML + " " + adress.innerHTML;
-    window.open(url);
 }
 
 $(window).on('mousewheel DOMMouseScroll', function(e) {

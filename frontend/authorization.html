@@ -53,17 +53,24 @@
 		httpRequest.send(json);
 		msg.innerHTML = "Ждём ответа сервера...";
 		httpRequest.onload = () => {
-			alert(httpRequest);
 	        if (httpRequest.status == 200) {
-	            let token = httpRequest.token;
-	            if (token != undefined) {
-	            	localStorage.setItem("token", token);
-	            	localStorage.setItem("fullname", token);
-	            	localStorage.setItem("avatarUrl", token);
+	            let response = httpRequest.response;
+	            //alert(token);
+	            if (response.token != undefined) {
+	            	localStorage.setItem("token", response.token);
+	            	localStorage.setItem("fullname", response.user.fullName);
+	            	if (response.user.imageUrl != null) {
+	            		localStorage.setItem("avatarUrl", response.user.imageUrl);
+	            	} else {
+	            		localStorage.setItem("avatarUrl", "img/avatar.jpg");
+	            	}
+	            	
 	            	window.location = 'layout-Tinder.html';
+	            } else {
+	            	msg.innerHTML = "Неудалось авторизация";
 	            }
 	        } else {
-	        	msg = "Неверный логин, или пароль";
+	        	msg.innerHTML = "Неверный логин, или пароль";
 	        }
 	    }	
 	}
