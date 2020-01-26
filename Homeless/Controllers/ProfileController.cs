@@ -19,7 +19,6 @@ namespace Homeless.Controllers
     [ApiController]
     public class ProfileController : ControllerBase
     {
-
         private readonly HomelessContext _context;
         private readonly UserManager<User> _userManager;
 
@@ -29,8 +28,8 @@ namespace Homeless.Controllers
             _userManager = manager;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GiveLike(int advertId)
+        [HttpPost("{advertId}")]
+        public async Task<IActionResult> Like(int advertId)
         {
             if (advertId <= 0 && !AdvertsController.AdvertExists(advertId, _context))
             {
@@ -49,8 +48,8 @@ namespace Homeless.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GiveBanned(int advertId)
+        [HttpPost("{advertId}")]
+        public async Task<IActionResult> Banned(int advertId)
         {
             if (advertId <= 0 && !_context.Banneds.Any(b => b.Id == advertId))
             {
@@ -86,13 +85,13 @@ namespace Homeless.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Avatar(string base64)
+        public async Task<ActionResult<string>> Avatar(string base64)
         {
             User user = await _userManager.GetUserAsync(User);
-            user.ImageUrl = AdvertsController.ImagesToUrl(new string[] { base64 });
+            user.ImageUrl = AdvertsController.ImagesToUrl(new string[] { base64 }, User);
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return Ok();
+            return user.ImageUrl;
         }
     }
 }

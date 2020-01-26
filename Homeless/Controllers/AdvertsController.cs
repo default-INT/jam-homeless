@@ -20,7 +20,8 @@ namespace Homeless.Controllers
     [ApiController]
     public class AdvertsController : ControllerBase
     {
-        private const string IMG_PATH = "/images/";
+        public const string IMG_PATH = "images/";
+        public const string IMG_USER_PATH = "user_image/";
         private const string IMG_NAME = "image$.jpeg";
         private readonly HomelessContext _context;
         private readonly IValidator<Advert> advertValidator;
@@ -39,6 +40,7 @@ namespace Homeless.Controllers
             var dis = _context.Banneds.Where(ban => ban.UserId == userId);
 
             return await _context.Adverts
+                .Where(advert => advert.UserId != userId)
                 .Where(advert => !likes.Any(l => l.AdvertId == advert.Id) && !dis.Any(d => d.AdvertId == advert.Id))
                 .Select(advert => CreateViewAdvert(advert))
                 .ToListAsync();
@@ -69,7 +71,7 @@ namespace Homeless.Controllers
 
             advert.Title = advertView.Title;
             advert.Information = advertView.Information;
-            advert.ImageUrls = string.Join(";", advertView.ImageUrls);
+            advert.ImageUrls = string.Join(";", ImagesToUrl(advertView.ImageUrls));
             advert.AnimalType = advertView.AnimalType;
 
             if (!advertValidator.IsValid(advert)) return BadRequest();
@@ -113,6 +115,7 @@ namespace Homeless.Controllers
 
             await _context.SaveChangesAsync();
             advert.Id = resultAdvert.Id;
+            advert.ImageUrls = resultAdvert.ImageUrls.Split(';');
             return CreatedAtAction("GetAdvert", new { id = resultAdvert.Id }, advert);
         }
 
@@ -148,19 +151,41 @@ namespace Homeless.Controllers
             };
         }
 
-        public static string ImagesToUrl(string[] imagesBase64)
+        public static string ImagesToUrl(string[] imagesBase64, ClaimsPrincipal user = null)
         {
-            IEnumerable<byte[]> images = imagesBase64.Select(url => Convert.FromBase64String(url));
             List<string> urls = new List<string>();
+            IEnumerable<byte[]> images = imagesBase64.Select(url =>
+            {
+                if (url.Contains(";base64,"))
+                {
+                    return Convert.FromBase64String(url.Substring(url.IndexOf(',') + 1));
+                }
+                else
+                {
+                    urls.Add(url);
+                    return null;
+                }
+            });
 
             foreach (byte[] img in images)
             {
-                string url = IMG_NAME.Replace("$", Directory.GetFiles(IMG_PATH).Length.ToString());
-                using (var imageFile = new FileStream(url, FileMode.Create))
+                if (img != null)
                 {
-                    imageFile.Write(img, 0, img.Length);
+                    string url;
+                    if (user != null)
+                    {
+                        url = IMG_USER_PATH + user.FindFirstValue(ClaimTypes.NameIdentifier) + ".jpeg";
+                    }
+                    else
+                    {
+                        url = IMG_PATH + IMG_NAME.Replace("$", Directory.GetFiles(IMG_PATH).Length.ToString());
+                    }
+                    using (var imageFile = new FileStream(url, FileMode.Create))
+                    {
+                        imageFile.Write(img, 0, img.Length);
+                    }
+                    urls.Add(url);
                 }
-                urls.Add(url);
             }
 
             return string.Join(";", urls);
