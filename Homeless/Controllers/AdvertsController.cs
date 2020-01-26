@@ -9,6 +9,7 @@ using Homeless.Models;
 using Homeless.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Homeless.Application.Validate;
+using System.Security.Claims;
 
 namespace Homeless.Controllers
 {
@@ -59,7 +60,7 @@ namespace Homeless.Controllers
 
             advert.Title = advertView.Title;
             advert.Information = advertView.Information;
-            advert.ImageUrls = advertView.ImageUrls;
+            advert.ImageUrls = string.Join(";", advertView.ImageUrls);
             advert.AnimalType = advertView.AnimalType;
 
             if (!advertValidator.IsValid(advert)) return BadRequest();
@@ -90,11 +91,12 @@ namespace Homeless.Controllers
         {
             Advert resultAdvert = new Advert
             {
-                ImageUrls = advert.ImageUrls,
+                ImageUrls = string.Join(";", advert.ImageUrls),
                 Information = advert.Information,
                 Title = advert.Title,
-                AnimalType = advert.AnimalType
-            };
+                AnimalType = advert.AnimalType,
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+        };
 
             if (!advertValidator.IsValid(resultAdvert)) return BadRequest();
 
@@ -130,7 +132,7 @@ namespace Homeless.Controllers
             return new ViewAdvert
             {
                 Id = advert.Id,
-                ImageUrls = advert.ImageUrls,
+                ImageUrls = advert.ImageUrls.Split(";"),
                 Information = advert.Information,
                 Title = advert.Title,
                 AnimalType = advert.AnimalType
