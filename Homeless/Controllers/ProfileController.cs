@@ -94,6 +94,20 @@ namespace Homeless.Controllers
             return user.ImageUrl;
         }
 
+        [HttpGet("{advertId}")]
+        public async Task<ActionResult<IEnumerable<ViewUser>>> WhoLikePost(int advertId)
+        {
+            return await _context.Likes
+                .Where(l => l.AdvertId == advertId)
+                .Include(l => l.LikeFromUser)
+                .Select(u => new ViewUser
+                {
+                    FullName = u.LikeFromUser.FullName,
+                    ImageUrl = u.LikeFromUser.ImageUrl,
+                    Id = u.UserId
+                }).ToListAsync();
+        }
+
         public class ImageBase64
         {
             public string Url { get; set; }
