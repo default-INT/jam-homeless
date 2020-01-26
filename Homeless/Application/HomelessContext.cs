@@ -18,5 +18,6 @@ namespace Homeless.Application
         public virtual DbSet<Models.Advert> Adverts { get; set; }
         public virtual DbSet<Models.Banned> Banneds { get; set; }
         public virtual DbSet<Models.Like> Likes { get; set; }
+        public virtual DbSet<Models.Message> Messages { get; set; }
     }
 }

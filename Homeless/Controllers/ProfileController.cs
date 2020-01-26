@@ -66,7 +66,7 @@ namespace Homeless.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<ViewAdvert>>> Adverts()
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
