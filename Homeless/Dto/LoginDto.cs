@@ -13,5 +13,7 @@ namespace Homeless.Dto
 
         [Required]
         public string Password { get; set; }
+
+        public bool Remember { get; set; } = false;
     }
 }

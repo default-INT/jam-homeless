@@ -37,7 +37,7 @@ namespace Homeless.Controllers
         [HttpPost]
         public async Task<object> Login([FromBody] LoginDto model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.Remember, false);
 
             if (result.Succeeded)
             {
@@ -50,7 +50,7 @@ namespace Homeless.Controllers
                         FullName = appUser.FullName,
                         ImageUrl = appUser.ImageUrl
                     }
-            };
+                };
                 return login;
             }
 
@@ -71,7 +71,7 @@ namespace Homeless.Controllers
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
+                await _signInManager.SignInAsync(user, model.Remember);
                 return GenerateJwtToken(model.Email, user);
             }
 
