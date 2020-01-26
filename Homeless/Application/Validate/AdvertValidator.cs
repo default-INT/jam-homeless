@@ -11,7 +11,12 @@ namespace Homeless.Application.Validate
         public bool IsValid(Advert obj)
         {
             bool valid = true;
-
+            
+            if (obj.Information.Length > 500)
+            {
+                valid = false;
+            }
+            
             return valid;
         }
     }

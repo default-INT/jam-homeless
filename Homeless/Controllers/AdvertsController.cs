@@ -34,7 +34,12 @@ namespace Homeless.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ViewAdvert>>> GetAdverts()
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var likes = _context.Likes.Where(like => like.UserId == userId);
+            var dis = _context.Banneds.Where(ban => ban.UserId == userId);
+
             return await _context.Adverts
+                .Where(advert => !likes.Any(l => l.AdvertId == advert.Id) && !dis.Any(d => d.AdvertId == advert.Id))
                 .Select(advert => CreateViewAdvert(advert))
                 .ToListAsync();
         }

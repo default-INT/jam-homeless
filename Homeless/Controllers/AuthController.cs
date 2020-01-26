@@ -75,7 +75,7 @@ namespace Homeless.Controllers
                 return GenerateJwtToken(model.Email, user);
             }
 
-            throw new ApplicationException("UNKNOWN_ERROR");
+            return BadRequest();
         }
 
         private string GenerateJwtToken(string email, IdentityUser user)

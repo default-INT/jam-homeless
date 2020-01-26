@@ -12,6 +12,11 @@ namespace Homeless.Application.Validate
         {
             bool valid = true;
 
+            if (obj.FullName.Split(' ').Length < 2)
+            {
+                valid = false;
+            }
+
             return valid;
         }
     }
