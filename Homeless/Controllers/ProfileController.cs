@@ -85,13 +85,18 @@ namespace Homeless.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<string>> Avatar(string base64)
+        public async Task<ActionResult<string>> Avatar(ImageBase64 base64)
         {
             User user = await _userManager.GetUserAsync(User);
-            user.ImageUrl = AdvertsController.ImagesToUrl(new string[] { base64 }, User);
+            user.ImageUrl = AdvertsController.ImagesToUrl(new string[] { base64.Url }, User);
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return user.ImageUrl;
+        }
+
+        public class ImageBase64
+        {
+            public string Url { get; set; }
         }
     }
 }
