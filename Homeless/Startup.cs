@@ -71,10 +71,9 @@ namespace Homeless
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseHttpsRedirection();
-
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 

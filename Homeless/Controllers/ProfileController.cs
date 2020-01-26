@@ -8,6 +8,7 @@ using Homeless.Models;
 using Homeless.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,10 +21,12 @@ namespace Homeless.Controllers
     {
 
         private readonly HomelessContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public ProfileController(HomelessContext context)
+        public ProfileController(HomelessContext context, UserManager<User> manager)
         {
             _context = context;
+            _userManager = manager;
         }
 
         [HttpPost]
@@ -66,7 +69,7 @@ namespace Homeless.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<ActionResult<IEnumerable<ViewAdvert>>> Adverts()
         {
             string id = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -74,6 +77,22 @@ namespace Homeless.Controllers
                 .Where(a => a.UserId.Equals(id))
                 .Select(advert => AdvertsController.CreateViewAdvert(advert))
                 .ToListAsync();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<string>> Avatar()
+        {
+            return (await _userManager.GetUserAsync(User)).ImageUrl;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Avatar(string base64)
+        {
+            User user = await _userManager.GetUserAsync(User);
+            user.ImageUrl = AdvertsController.ImagesToUrl(new string[] { base64 });
+            _context.Entry(user).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }

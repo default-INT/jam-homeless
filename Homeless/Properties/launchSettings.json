@@ -20,7 +20,7 @@
     "Homeless": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "api/adverts",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

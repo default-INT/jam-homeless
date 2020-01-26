@@ -10,6 +10,8 @@ using Homeless.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Homeless.Application.Validate;
 using System.Security.Claims;
+using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Homeless.Controllers
 {
@@ -18,6 +20,8 @@ namespace Homeless.Controllers
     [ApiController]
     public class AdvertsController : ControllerBase
     {
+        private const string IMG_PATH = "/images/";
+        private const string IMG_NAME = "image$.jpeg";
         private readonly HomelessContext _context;
         private readonly IValidator<Advert> advertValidator;
 
@@ -91,12 +95,12 @@ namespace Homeless.Controllers
         {
             Advert resultAdvert = new Advert
             {
-                ImageUrls = string.Join(";", advert.ImageUrls),
+                ImageUrls = ImagesToUrl(advert.ImageUrls),
                 Information = advert.Information,
                 Title = advert.Title,
                 AnimalType = advert.AnimalType,
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
-        };
+            };
 
             if (!advertValidator.IsValid(resultAdvert)) return BadRequest();
 
@@ -137,6 +141,24 @@ namespace Homeless.Controllers
                 Title = advert.Title,
                 AnimalType = advert.AnimalType
             };
+        }
+
+        public static string ImagesToUrl(string[] imagesBase64)
+        {
+            IEnumerable<byte[]> images = imagesBase64.Select(url => Convert.FromBase64String(url));
+            List<string> urls = new List<string>();
+
+            foreach (byte[] img in images)
+            {
+                string url = IMG_NAME.Replace("$", Directory.GetFiles(IMG_PATH).Length.ToString());
+                using (var imageFile = new FileStream(url, FileMode.Create))
+                {
+                    imageFile.Write(img, 0, img.Length);
+                }
+                urls.Add(url);
+            }
+
+            return string.Join(";", urls);
         }
     }
 }

@@ -78,7 +78,7 @@ namespace Homeless.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
                     ImageUrls = table.Column<string>(nullable: true),
                     Information = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false),
