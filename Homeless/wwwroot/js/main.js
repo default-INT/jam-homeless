@@ -93,6 +93,8 @@ function setUserData() {
 
 }
 
+getAdverts();
+
 function getAdverts() {
     let httpRequest = new XMLHttpRequest();
 
@@ -212,13 +214,14 @@ function getAdvertHTML(advert) {
     itemImg.classList.add("item-img");
 
     let img = document.createElement("img");
-    img.style.width = "80px";
+    img.style.width = "120px";
     if (advert.imageUrls != undefined && advert.imageUrls != null) {
         img.src = advert.imageUrls[0];
     }
 
-    img.alt = defaultImgUrl;
-
+    if (img.src == "" || img.src == null || img.src === undefined) {
+        img.src = defaultImgUrl;
+    }
 
     itemImg.appendChild(img);
 

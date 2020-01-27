@@ -91,7 +91,7 @@ namespace Homeless.Controllers
             user.ImageUrl = AdvertsController.ImagesToUrl(new string[] { base64.Url }, User);
             _context.Entry(user).State = EntityState.Modified;
             await _context.SaveChangesAsync();
-            return user.ImageUrl;
+            return "{\"url\":\"" + user.ImageUrl + "\"}";
         }
 
         [HttpGet("{advertId}")]

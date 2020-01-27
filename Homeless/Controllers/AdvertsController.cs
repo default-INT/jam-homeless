@@ -20,8 +20,8 @@ namespace Homeless.Controllers
     [ApiController]
     public class AdvertsController : ControllerBase
     {
-        public const string IMG_PATH = "images/";
-        public const string IMG_USER_PATH = "user_image/";
+        public const string IMG_PATH = "~/images/";
+        public const string IMG_USER_PATH = "/user_image/";
         private const string IMG_NAME = "image$.jpeg";
         private readonly HomelessContext _context;
         private readonly IValidator<Advert> advertValidator;

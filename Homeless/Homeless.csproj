@@ -9,6 +9,32 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\images\image16.jpeg" />
+    <Content Remove="wwwroot\images\image17.jpeg" />
+    <Content Remove="wwwroot\images\image18.jpeg" />
+    <Content Remove="wwwroot\images\image19.jpeg" />
+    <Content Remove="wwwroot\images\image20.jpeg" />
+    <Content Remove="wwwroot\images\image21.jpeg" />
+    <Content Remove="wwwroot\images\image22.jpeg" />
+    <Content Remove="wwwroot\images\image23.jpeg" />
+    <Content Remove="wwwroot\images\image24.jpeg" />
+    <Content Remove="wwwroot\images\image25.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\images\image16.jpeg" />
+    <None Include="wwwroot\images\image17.jpeg" />
+    <None Include="wwwroot\images\image18.jpeg" />
+    <None Include="wwwroot\images\image19.jpeg" />
+    <None Include="wwwroot\images\image20.jpeg" />
+    <None Include="wwwroot\images\image21.jpeg" />
+    <None Include="wwwroot\images\image22.jpeg" />
+    <None Include="wwwroot\images\image23.jpeg" />
+    <None Include="wwwroot\images\image24.jpeg" />
+    <None Include="wwwroot\images\image25.jpeg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
