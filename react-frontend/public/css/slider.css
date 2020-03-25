@@ -1,0 +1,67 @@
+.animal-slider {
+    display: inline-block !important;;
+    width: 470px !important;
+    
+}
+
+.animal-slider {
+    overflow: hidden;
+}
+
+.carousel-inner { 
+    width: 100% !important;
+    border-radius: 10px;
+    box-shadow: 0 0 8px 5px rgba(0,0,0,.2); 
+    margin: 10px 0 10px 0 !important;
+}
+
+.carousel-item img {
+    height: 650px !important;
+    width: 500px !important;
+}
+
+.main-content aside button {
+    width: 150px;
+    height: 80px;
+}
+
+.main-content aside  {
+    text-align: center;
+    background: whitesmoke;
+}
+
+.main-content .slider {
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.main-content .nav-btn {
+    width: 80px;
+    border-radius: 60px;
+    font-size: 24pt;
+    overflow: hidden;
+    box-shadow: 0 0 8px 5px rgba(0,0,0,.2); 
+    background: white;
+    overflow: hidden;    
+    padding: 0 0 5px 0;
+    border: 0;
+}
+
+.main-content .dislike {
+    
+    margin-right: 150px;
+}
+
+.main-content aside {
+    padding-bottom: 10px;
+}
+
+.navigation-bar {
+    margin-top: 10px;
+}
+
+::-moz-focus-outer, ::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
